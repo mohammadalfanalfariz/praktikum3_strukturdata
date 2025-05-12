@@ -1,0 +1,144 @@
+•	// Kelas Node untuk Single Linked List
+•	class Node<T> {
+•	  T? nodeValue; // Menyimpan data/value dari Node (bisa null)
+•	  Node<T>? next; // Menunjuk ke node berikutnya
+•	
+•	  // Constructor untuk node dengan nilai
+•	  Node(T value) : nodeValue = value, next = null;
+•	
+•	  // Constructor untuk node kosong (jarang digunakan)
+•	  Node.empty() : nodeValue = null, next = null;
+•	}
+•	
+•	// Kelas SingleLinkedList
+•	class SingleLinkedList<T> {
+•	  Node<T>? head; // Menyimpan node pertama dalam list
+•	
+•	  // Constructor
+•	  SingleLinkedList();
+•	
+•	  // Menambahkan node di depan list
+•	  void insertAtBeginning(T value) {
+•	    Node<T> newNode = Node(value);
+•	    newNode.next = head;
+•	    head = newNode;
+•	  }
+•	
+•	  // Menghapus node dari depan list
+•	  void deleteFromBeginning() {
+•	    if (head == null) {
+•	      print("List kosong, tidak ada yang dihapus.");
+•	      return;
+•	    }
+•	    head = head!.next; // Set head ke node berikutnya
+•	  }
+•	
+•	  // Menampilkan semua elemen dalam list
+•	  void display() {
+•	    Node<T>? current = head;
+•	    while (current != null) {
+•	      print('${current.nodeValue}');
+•	      if (current.next != null) {
+•	        print(' -> ');
+•	      }
+•	      current = current.next;
+•	    }
+•	    print(' -> null');
+•	  }
+•	}
+•	
+•	// Contoh penggunaan
+•	void main() {
+•	  SingleLinkedList<int> list = SingleLinkedList();
+•	  list.insertAtBeginning(10);
+•	  list.insertAtBeginning(20);
+•	  list.insertAtBeginning(30);
+•	
+•	  print("Isi list setelah penambahan:");
+•	  list.display();
+•	
+•	  list.deleteFromBeginning();
+•	  print("\nIsi list setelah penghapusan:");
+•	  list.display();
+•	}
+
+latihan double linked list 
+•	class DNode<T> {
+•	  T? data;
+•	  DNode<T>? prev;
+•	  DNode<T>? next;
+•	
+•	  DNode(T data) : data = data, prev = null, next = null;
+•	}
+•	
+•	class DoubleLinkedList<T> {
+•	  DNode<T>? head;
+•	  DNode<T>? tail;
+•	
+•	  // Method untuk menambahkan node sebelum node target
+•	  void tambahNode_Sebelum(DNode<T> newNode, DNode<T> target) {
+•	    // Jika list kosong
+•	    if (head == null) {
+•	      print("List kosong, tidak bisa menambahkan node");
+•	      return;
+•	    }
+•	
+•	    // Jika target adalah head
+•	    if (target == head) {
+•	      newNode.next = head;
+•	      head!.prev = newNode;
+•	      head = newNode;
+•	      return;
+•	    }
+•	
+•	    // Traversal dari head untuk mencari node sebelum target
+•	    DNode<T>? current = head;
+•	    while (current != null && current.next != target) {
+•	      current = current.next;
+•	    }
+•	
+•	    // Jika target tidak ditemukan
+•	    if (current == null) {
+•	      print("Target node tidak ditemukan dalam list");
+•	      return;
+•	    }
+•	
+•	    // Insert newNode sebelum target
+•	    newNode.prev = current;
+•	    newNode.next = target;
+•	    current.next = newNode;
+•	    target.prev = newNode;
+•	  }
+•	
+•	  // Method untuk print list (maju)
+•	  void printForward() {
+•	    DNode<T>? current = head;
+•	    while (current != null) {
+•	      print(current.data);
+•	      current = current.next;
+•	    }
+•	  }
+•	}
+•	void main() {
+•	  var dll = DoubleLinkedList<int>();
+•	  var node1 = DNode(10);
+•	  var node2 = DNode(20);
+•	  var node3 = DNode(30);
+•	  
+•	  dll.head = node1;
+•	  node1.next = node2;
+•	  node2.prev = node1;
+•	  node2.next = node3;
+•	  node3.prev = node2;
+•	  dll.tail = node3;
+•	
+•	  print("Sebelum ditambah:");
+•	  dll.printForward(); // Output: 10 20 30
+•	
+•	  var newNode = DNode(15);
+•	  dll.tambahNode_Sebelum(newNode, node2);
+•	
+•	  print("\nSetelah ditambah:");
+•	  dll.printForward(); // Output: 10 15 20 30
+•	}
+
